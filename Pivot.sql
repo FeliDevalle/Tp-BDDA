@@ -1,6 +1,5 @@
 use pruebasDB
 go
-
 select top 10 * from ddbba.venta
 
 -- Vamos al ejemplo del material
