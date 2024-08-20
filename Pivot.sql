@@ -16,12 +16,12 @@ pivot(sum(Total) for Mes in ([1-2023],[2-2023],[3-2023],[4-2023],[5-2023],[6-202
 
 /*
 Aspectos a notar:
-* Usamos datepart para extraer porciones de la fecha. No es la única forma (en el material de clase usamos otra).
+* Usamos datepart para extraer porciones de la fecha. No es la Ãºnica forma (en el material de clase usamos otra).
 * El pivot siempre se hace con funciones de agregado.
 * Los valores que generamos para cada mes los debemos indicar hardcodeados en el pivot.
 * Si faltan datos para un valor, genera un NULL.
 * El uso de CAST fuerza la interpretacion como cadena de texto. 
-* Ese "varchar" admite hasta 30 caracteres. El cast luego truncará, sino debe indicarse tamaño.
+* Ese "varchar" admite hasta 30 caracteres. El cast luego truncarÃ¡, sino debe indicarse tamaÃ±o.
 * El pivot lleva nombre. El error por no indicarlo no es intuitivo.
 * Usamos corchetes en los valores de columna de PIVOT.
 */
@@ -48,10 +48,10 @@ El uso de la funcion de agregado es obligatorio.
 */
 select *
 from ddbba.nota
-pivot ( max(nota) for materia in (Reposteria, Filologia, Hermenéutica) ) A
+pivot ( max(nota) for materia in (Reposteria, Filologia, HermenÃ©utica) ) A
 
 /*
-¿Qué pasa si falta el valor de un cruce?
+Â¿QuÃ© pasa si falta el valor de un cruce?
 Veamos. Rompamos algo.
 */
 Delete from ddbba.Nota
@@ -60,20 +60,20 @@ where alumno='Juan Bochazo' and materia='Filologia'
 -- a ver que pasa...
 select *
 from ddbba.nota
-pivot ( max(nota) for materia in (Reposteria, Filologia, Hermenéutica) ) A
+pivot ( max(nota) for materia in (Reposteria, Filologia, HermenÃ©utica) ) A
 
 /*
-¿Qué tendríamos que hacer para que no aparezca asi?
+Â¿QuÃ© tendrÃ­amos que hacer para que no aparezca asi?
 */
-select alumno, isnull(Reposteria,0) Reposteria, isnull(Filologia,0) Filología, isnull(Hermenéutica,0) Hermenéutica
+select alumno, isnull(Reposteria,0) Reposteria, isnull(Filologia,0) FilologÃ­a, isnull(HermenÃ©utica,0) HermenÃ©utica
 From (
 	select *
 	from ddbba.nota
-	pivot ( max(nota) for materia in (Reposteria, Filologia, Hermenéutica) ) A
+	pivot ( max(nota) for materia in (Reposteria, Filologia, HermenÃ©utica) ) A
 ) B
 
--- Claramente no es práctico codificar los nombres de las materias
--- Añadamos algo de SQL dinámico a la receta
+-- Claramente no es prÃ¡ctico codificar los nombres de las materias
+-- AÃ±adamos algo de SQL dinÃ¡mico a la receta
 -- Vengan todas las materias que quieran, con esta consulta no hay limite. Las atendemos a todas.
 
 declare @cadenaSQL nvarchar(max)
