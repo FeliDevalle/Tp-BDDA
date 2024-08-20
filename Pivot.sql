@@ -3,6 +3,14 @@ go
 
 select top 10 * from ddbba.venta
 
+
+
+
+
+
+
+
+
 -- Vamos al ejemplo del material
 -- Note que el CTE simplifica la consulta
 with VentasResumidas (Total, Ciudad, Mes) as(
